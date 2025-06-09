@@ -1,5 +1,9 @@
 # Simulated Robotic Capture of Space Debris Using Inverse Kinematics Control  
-ヴィクトリア・デ・レオン | 東京都立大学 | 2025年6月  
+
+**ヴィクトリア・デ・レオン**  
+**東京都立大学 | Tokyo Metropolitan University**  
+**June 2025**
+
 
 ## Overview
 
@@ -68,8 +72,3 @@ Developed at the **Laboratory of Dr. Hirohisa Kojima**, **Tokyo Metropolitan Uni
 | Proximity-based satellite interception | [Watch here](https://youtu.be/qegu02heNtw) |
 | Workspace-aware adaptive IK alignment | [Watch here](https://youtu.be/QFFG4ZrGdR4) |
 
----
-
-**ヴィクトリア・デ・レオン**  
-**東京都立大学 | Tokyo Metropolitan University**  
-**June 2025**
