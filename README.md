@@ -1,56 +1,75 @@
-# Simulated Robotic Capture of Space Debris Using Inverse Kinematics Control
-Victoria de León | Tokyo Metropolitan University | June 2025
+# Simulated Robotic Capture of Space Debris Using Inverse Kinematics Control  
+ヴィクトリア・デ・レオン | 東京都立大学 | 2025年6月  
 
-### Overview
-Space debris represents a critical challenge to current and future space operations, with thousands of uncontrolled objects threatening satellites and crewed missions. This project presents a simulated robotic capture system developed using CoppeliaSim Edu 4.7.0, integrating inverse kinematics, vision-based detection, proximity sensing, and Kalman filtering to autonomously intercept and grasp free-floating debris.
+## Overview
 
-This work was developed as part of a research stay at the laboratory of Dr. Hirohisa Kojima at Tokyo Metropolitan University, Tokyo, Japan, focused on advancing autonomous systems for space debris removal and on-orbit servicing.
+Space debris poses a growing threat to operational satellites and future space infrastructure. Autonomous robotic systems capable of identifying, tracking, and capturing debris are essential for long-term orbital sustainability. This project presents a simulated debris capture system using **CoppeliaSim Edu v4.7.0**, combining:
 
-### Key Features
-1. Robotic Configuration and Simulation Environment
-A UR5 robotic manipulator and a BarrettHand gripper were configured in CoppeliaSim.
+- Inverse kinematics
+- Vision-based adaptive positioning
+- Proximity-based grasp triggering
+- Kalman filtering for motion prediction
 
-The simulation models realistic microgravity conditions, with space debris exhibiting floating motion, varying velocities, and orientations.
+Developed at the **Laboratory of Dr. Hirohisa Kojima**, **Tokyo Metropolitan University**, Tokyo, Japan.
 
-Debris models were designed in Blender and imported with correct physical scaling for simulation accuracy.
+## 🔧 System Description
 
-The reachable workspace of the UR5 was implemented based on manufacturer specifications to prevent invalid or unreachable arm configurations.
+### 🤖 Robot Configuration
 
-2. Vision-Based Zone Detection
-A vision sensor mounted on the gripper continuously analyzes the vertical location of the target object.
+- **UR5 robotic arm** with six degrees of freedom.
+- **BarrettHand gripper** using sample model and custom control logic.
+- **Vision sensor** mounted at the gripper tip.
+- **Proximity sensor** for close-range object detection.
+- Imported 3D debris models (e.g., satellites) from Blender, scaled realistically.
 
-The image is divided into three vertical regions (top, middle, bottom), and the brightest region is interpreted as the dominant zone.
+### 🌌 Environment Setup
 
-This zone is encoded as a signal used to control vertical adjustments of the robotic arm in real time.
+- **Microgravity simulation:** No gravity and floating debris.
+- **Variable velocities and orientations** applied to simulate free-floating space objects.
+- **Workspace validation** using UR5 kinematic specifications to avoid invalid positions or unreachable targets.
 
-3. Inverse Kinematics and Adaptive Positioning
-A custom inverse kinematics setup calculates real-time target alignment using the simIK module.
+## 🧠 Functional Components
 
-The target point dynamically shifts based on the vision sensor signal, allowing the end-effector to align with the debris as it moves.
+### 1. Vision-Based Target Zoning
+- The vision sensor analyzes pixel brightness in real time.
+- The image is split into 3 vertical zones: `bottom`, `middle`, `top`.
+- The dominant zone (highest pixel activity) is broadcast via an integer signal:  
+  - `0` → bottom  
+  - `1` → middle  
+  - `2` → top
+- This zone influences Z-axis movement for target alignment.
 
-Fine Z-axis adjustments are executed smoothly, ensuring that the capture occurs within valid motion bounds.
+### 2. Inverse Kinematics (IK) for Arm Control
+- The `simIK` environment calculates arm poses based on the target position.
+- Z-position of the target is adaptively updated using the signal from the vision sensor.
+- Arm motion respects physical workspace limits (radius ≤ 0.85 m).
+- End-effector position is validated via real-time error measurement (threshold: 2 cm).
 
-4. Proximity-Based Capture Activation
-A proximity sensor attached to the gripper detects when the object is within a predefined capture range.
+### 3. Proximity-Based Capture Trigger
+- A proximity sensor is used to detect when the object is within the grasp zone.
+- Upon detection:
+  - The object is re-parented to the gripper’s attach point.
+  - A float signal is sent to actuate the fingers.
+  - Object is repositioned and reoriented for a clean grasp.
 
-Upon detection, the object is dynamically attached to the gripper at a set offset and orientation.
+### 4. Kalman Filter for Z-Motion Prediction
+- Tracks the Z-position of the debris.
+- Estimates vertical velocity and predicts time until reaching the optimal capture zone.
+- Prediction outputs:
+  - Estimated Z position
+  - Vertical speed
+  - Time-to-capture (used for logging or planning)
 
-A float signal is used to actuate the BarrettHand fingers, triggering closure only upon valid capture conditions.
+## 📽️ Demonstration Videos
 
-5. Kalman Filter for Motion Prediction
-A Kalman filter tracks and estimates the Z-axis position and velocity of the debris in real time.
+| Description | Link |
+|------------|------|
+| Vision-guided capture using Kalman prediction | [Watch here](https://youtu.be/GTcBJm_dImc) |
+| Proximity-based satellite interception | [Watch here](https://youtu.be/qegu02heNtw) |
+| Workspace-aware adaptive IK alignment | [Watch here](https://youtu.be/QFFG4ZrGdR4) |
 
-Based on this estimate, the system predicts the time remaining before the object reaches the optimal capture zone.
+---
 
-This prediction is logged and can be used to further optimize the decision-making process for grasp execution.
-
-Demonstration Videos
-Demo 1: Vision-guided capture using Kalman prediction
-
-Demo 2: Proximity-based satellite interception
-
-Demo 3: Workspace-aware adaptive IK alignment
-
-
-
-![image](https://github.com/user-attachments/assets/e0f0e02a-5988-46e6-9e0f-fe7ebe08aeea)
+**ヴィクトリア・デ・レオン**  
+**東京都立大学 | Tokyo Metropolitan University**  
+**June 2025**
