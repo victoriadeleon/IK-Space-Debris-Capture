@@ -14,6 +14,8 @@ Space debris poses a growing threat to operational satellites and future space i
 - Proximity-based grasp triggering
 - Kalman filtering for motion prediction
 
+![Screenshot 2025-06-10 051058](https://github.com/user-attachments/assets/09fa2a41-0b7e-474e-8ddd-2db361d6940c)
+
 ## 🔧 System Description
 
 ### 🤖 Robot Configuration
