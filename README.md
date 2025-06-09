@@ -1,6 +1,4 @@
-# IK-Space-Debris-Capture
-Inverse Kinematics Control for Robotic Capture of Space Debris in Simulation
-
+# Simulated Robotic Capture of Space Debris Using Inverse Kinematics Control
 Victoria de León | Tokyo Metropolitan University | June 2025
 
 
