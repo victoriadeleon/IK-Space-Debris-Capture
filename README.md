@@ -26,7 +26,7 @@ Space debris poses a growing threat to operational satellites and future space i
 
 ### 🌌 Environment Setup
 
-- **Microgravity simulation:** No gravity and floating debris.
+- **Microgravity-based simulation:** Zero gravity (debris is floating!)
 - **Variable velocities and orientations** applied to simulate free-floating space objects.
 - **Workspace validation** using UR5 kinematic specifications to avoid invalid positions or unreachable targets.
 
