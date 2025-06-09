@@ -14,8 +14,6 @@ Space debris poses a growing threat to operational satellites and future space i
 - Proximity-based grasp triggering
 - Kalman filtering for motion prediction
 
-Developed at the **Laboratory of Dr. Hirohisa Kojima**, **Tokyo Metropolitan University**, Tokyo, Japan.
-
 ## 🔧 System Description
 
 ### 🤖 Robot Configuration
